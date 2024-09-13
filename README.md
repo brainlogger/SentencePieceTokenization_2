@@ -1,79 +1,71 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Text Tokenization Example in React Native
 
-# Getting Started
+This project demonstrates the implementation of text tokenization using the SentencePiece algorithm in a React Native application.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Overview
 
-## Step 1: Start the Metro Server
+The project utilizes `tokenizer_config.json` and `tokenizer.json` files from the [sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) model for tokenization.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+It's important to note that this example is for illustrative purposes only and is not intended for production use. A critical factor to consider is the initial tokenizer initialization time. For instance, on a Xiaomi Redmi 4X device, this process can take up to 40 seconds, which is quite long from a user experience perspective. However, it's worth mentioning that the tokenization itself occurs relatively quickly; the issue lies solely in the lengthy initialization process, which needs to be addressed.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+The core code is located in the `App.tsx` file. The graphical interface displays only "Hello World", while the tokenization results are output to the console.
 
-```bash
-# using npm
-npm start
+## Installation and Running
 
-# OR using Yarn
-yarn start
-```
+1. Clone the repository
+2. Install dependencies:
+   ```
+   yarn install
+   ```
+3. Run the project for testing
 
-## Step 2: Start your Application
+## Integrating Tokenization into Your Project
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+To add similar functionality to your project, follow these steps:
 
-### For Android
+1. Install the required packages:
+   ```
+   yarn add @fugood/transformers react-native-fs
+   yarn add patch-package postinstall-postinstall --dev
+   ```
 
-```bash
-# using npm
-npm run android
+2. Modify the `node_modules/@fugood/transformers/src/env.js` file:
 
-# OR using Yarn
-yarn android
-```
+   ```diff
+   diff --git a/node_modules/@fugood/transformers/src/env.js b/node_modules/@fugood/transformers/src/env.js
+   index 37762f6..44b601a 100644
+   --- a/node_modules/@fugood/transformers/src/env.js
+   +++ b/node_modules/@fugood/transformers/src/env.js
+   @@ -24,7 +24,7 @@
+    import fs from 'fs';
+    import path from 'path';
+   -import url from 'url';
+    import { Buffer } from 'buffer';
+    
+    import { ONNX } from './backends/onnx.js';
+   @@ -45,7 +45,8 @@ let localPath = './';
+    if (IS_REACT_NATIVE) {
+      localPath = fs.DocumentDirectoryPath;
+    } else if (RUNNING_LOCALLY) {
+   -  localPath = path.dirname(path.dirname(url.fileURLToPath(import.meta.url)));
+   +  localPath = path.dirname(path.dirname(__filename));
+    }
+    
+    // Only used for environments with access to file system
+   ```
 
-### For iOS
+3. Apply the patch:
+   ```
+   npx patch-package @fugood/transformers
+   ```
 
-```bash
-# using npm
-npm run ios
+4. Add a script to your `package.json` to automatically apply the patch after reinstalling packages:
+   ```json
+   "scripts": {
+     ...
+     "postinstall": "patch-package",
+     ...
+   }
+   ```
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Your project is now ready to use text tokenization with SentencePiece.
