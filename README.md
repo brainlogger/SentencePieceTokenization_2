@@ -35,7 +35,7 @@ To add similar functionality to your project, follow these steps:
 
 1. Install the required packages:
    ```
-   yarn add @fugood/transformers react-native-fs
+   yarn add @fugood/transformers react-native-fs react-native-file-access
    yarn add patch-package postinstall-postinstall --dev
    ```
 
