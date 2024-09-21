@@ -10,14 +10,24 @@ It's important to note that this example is for illustrative purposes only and i
 
 The core code is located in the `App.tsx` file. The graphical interface displays only "Hello World", while the tokenization results are output to the console.
 
-## Installation and Running
+## Installation and Running on Android
 
 1. Clone the repository
 2. Install dependencies:
    ```
    yarn install
    ```
-3. Run the project for testing
+3. Install the application on your Android device:
+   ```
+   yarn android
+   ```
+   Note: After the initial installation and launch of the application, an error will occur. This is expected and will be resolved after completing steps 4-6.
+4. Open Android Studio
+5. In Android Studio, open Device Explorer:
+   View > Tool Windows > Device Explorer
+6. In Device Explorer, select your Android device and upload the `tokenizer.json` and `tokenizer_config.json` files to the following path:
+   `/data/data/com.sentencepiecetokenization/files`
+7. Once the files are uploaded, the app should work after a reboot.
 
 ## Integrating Tokenization into Your Project
 

@@ -3191,6 +3191,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.3.1
     react-native: 0.75.2
+    react-native-file-access: ^3.1.0
     react-native-fs: ^2.20.0
     react-test-renderer: 18.3.1
     typescript: 5.0.4
@@ -8738,6 +8739,16 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-file-access@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "react-native-file-access@npm:3.1.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 945e1f098558216faf7dcd7a6a88960d9a537dabb24a23f11b569d14292cb90f832eb2ddac813eb6553a08ae24860a0a6164b46b3b53c705a6e245c47ebf5dea
   languageName: node
   linkType: hard
 
