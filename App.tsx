@@ -15,7 +15,7 @@ const App = () => {
       const tokenizerData = await FileSystem.readFile(Dirs.DocumentDir + '/tokenizer.json');
       const tokenizerJSON = JSON.parse(tokenizerData);
 
-      //This line runs for 19 seconds blocking the application interface
+      //On a Xiaomi Redmi 4x device, this line runs for 19 seconds blocking the application interface
       const tokenizer = new PreTrainedTokenizer(tokenizerJSON, tokenizerConfig);
 
       console.log(`Tokenizer loaded successfully: ${performance.now() - startTime} milliseconds`);
